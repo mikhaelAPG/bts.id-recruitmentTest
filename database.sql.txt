@@ -1,14 +1,24 @@
 CREATE DATABASE mydatabase;
 
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE Checklist (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    checklist_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    name VARCHAR(100) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 CREATE TABLE ChecklistItem (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    completed BOOLEAN DEFAULT false,
-    checklistId INT NOT NULL,
-    FOREIGN KEY (checklistId) REFERENCES Checklist(id)
+    checklist_item_id INT PRIMARY KEY AUTO_INCREMENT,
+    checklist_id INT,
+    item_name VARCHAR(100) NOT NULL,
+    status ENUM('pending', 'completed') DEFAULT 'pending',
+    FOREIGN KEY (checklist_id) REFERENCES Checklist(checklist_id)
 );
+
