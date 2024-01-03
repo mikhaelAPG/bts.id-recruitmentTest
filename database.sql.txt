@@ -1,0 +1,14 @@
+CREATE DATABASE mydatabase;
+
+CREATE TABLE Checklist (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE ChecklistItem (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    completed BOOLEAN DEFAULT false,
+    checklistId INT NOT NULL,
+    FOREIGN KEY (checklistId) REFERENCES Checklist(id)
+);
